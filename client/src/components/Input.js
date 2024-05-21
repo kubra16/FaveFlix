@@ -51,7 +51,7 @@ const Input = ({ value, onClick, setPlayListName }) => {
         }}
       >
         <Typography style={theme.typography.h2} gutterBottom>
-          Search you favorite movie
+          Add movie to playlist
         </Typography>
       </div>
 

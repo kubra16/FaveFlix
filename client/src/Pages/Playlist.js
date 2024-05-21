@@ -43,13 +43,13 @@ const Playlist = () => {
   }, [user]);
 
   const copyPlaylistLink = (playlistId) => {
-    const playlistURL = `${window.location.origin}/playlist/${playlistId}`;
+    const playlistURL = `${window.location.origin}/public/${playlistId}`;
     navigator.clipboard.writeText(playlistURL);
     alert("Playlist link copied to clipboard!");
   };
 
   const handlePlaylistSelect = (playlist) => {
-    const playlistURL = `/playlist/${playlist._id}`;
+    const playlistURL = `/public/${playlist._id}`;
     navigate(playlistURL);
   };
 

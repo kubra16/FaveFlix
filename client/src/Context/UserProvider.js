@@ -12,8 +12,8 @@ const UserProvider = ({ children }) => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     setUser(userInfo);
 
-    if (!userInfo) navigate("/");
-  }, [navigate]);
+    // if (!userInfo) navigate("/");
+  }, []);
   return (
     <UserContext.Provider
       value={{
