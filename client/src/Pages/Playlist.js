@@ -19,6 +19,7 @@ const Playlist = () => {
     playList,
     setPlaylist,
   } = UserState();
+
   const useStyles = makeStyles((theme) => ({
     container: {
       padding: theme.spacing(2),
@@ -99,18 +100,18 @@ const Playlist = () => {
               <Typography variant="h5" className={classes.playlistName}>
                 {list.name}
               </Typography>
-              {list.isPublic && (
-                <Button
-                  style={theme.components.MuiButton.containedList}
-                  className={classes.copyButton}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    copyPlaylistLink(list._id);
-                  }}
-                >
-                  Copy link
-                </Button>
-              )}
+              {/* {list.isPublic && ( */}
+              <Button
+                style={theme.components.MuiButton.containedList}
+                className={classes.copyButton}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  copyPlaylistLink(list._id);
+                }}
+              >
+                Copy link
+              </Button>
+              {/* )} */}
 
               {console.log(list.isPublic)}
               <Button
