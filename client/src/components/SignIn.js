@@ -2,6 +2,7 @@ import { Button, Grid, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const SignIn = () => {
@@ -37,10 +38,13 @@ const SignIn = () => {
         { email: email.value, password: password.value },
         config
       );
+
       localStorage.setItem("userInfo", JSON.stringify(data));
       history("/home");
+      toast.success("Logged in successfully");
     } catch (err) {
       console.log(err);
+      toast.error("Something went wrong. please try again later");
     }
   };
 

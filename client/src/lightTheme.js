@@ -75,6 +75,14 @@ const lightTheme = createTheme({
           },
           width: "100%",
         },
+        containedList: {
+          color: "white",
+          backgroundColor: purple[500],
+          "&:hover": {
+            backgroundColor: purple[700],
+          },
+          width: "5rem",
+        },
         containedSecondary: {
           color: "white",
           backgroundColor: purple[500],

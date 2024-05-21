@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import MovieCard from "../components/MovieCard";
 import MovieModal from "../components/MovieModal";
 import axios from "axios";
@@ -18,7 +19,40 @@ const Playlist = () => {
     playList,
     setPlaylist,
   } = UserState();
+  const useStyles = makeStyles((theme) => ({
+    container: {
+      padding: theme.spacing(2),
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    playlistItem: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      width: "50%",
+      padding: theme.spacing(2),
+      backgroundColor: theme.palette.background.paper,
+      borderRadius: theme.shape.borderRadius,
+      // boxShadow: theme.shadows[2],
+      marginBottom: theme.spacing(2),
+      "&:hover": {
+        backgroundColor: theme.palette.action.hover,
+      },
+    },
+    playlistName: {
+      flexGrow: 1,
+      color: theme.palette.text.primary,
+    },
+    copyButton: {
+      marginLeft: theme.spacing(2),
+    },
+  }));
+  const theme = useTheme();
   const navigate = useNavigate();
+  const classes = useStyles();
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -54,48 +88,51 @@ const Playlist = () => {
   };
 
   return (
-    <div>
-      <Box sx={{ padding: 2 }}>
-        <Grid container spacing={3}>
-          {playList.map((list) => (
-            // <Grid item key={list.imdbID} xs={12} sm={6} md={4}>
+    <Box className={classes.container}>
+      <Grid container spacing={3}>
+        {playList.map((list) => (
+          <Grid item xs={12} key={list._id}>
             <Box
+              className={classes.playlistItem}
               onClick={() => handlePlaylistSelect(list)}
-              style={{
-                color: "white",
-                display: "flex",
-                flexDirection: "column",
-                width: "100%",
-              }}
             >
-              <Typography
-                variant="h4"
-                component="h1"
-                gutterBottom
-                style={{
-                  color: "white",
-                  display: "flex",
-                  flexDirection: "column",
-                  width: "100%",
-                  margin: "3rem",
-                }}
-              >
+              <Typography variant="h5" className={classes.playlistName}>
                 {list.name}
               </Typography>
-              <Button onClick={() => copyPlaylistLink(list._id)}>
-                Copy link
+              {list.isPublic && (
+                <Button
+                  style={theme.components.MuiButton.containedList}
+                  className={classes.copyButton}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    copyPlaylistLink(list._id);
+                  }}
+                >
+                  Copy link
+                </Button>
+              )}
+
+              {console.log(list.isPublic)}
+              <Button
+                style={theme.components.MuiButton.containedList}
+                className={classes.copyButton}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  copyPlaylistLink(list._id);
+                }}
+              >
+                Make it public
               </Button>
             </Box>
-            // </Grid>
-          ))}
-        </Grid>
-        <MovieModal
-        //   isOpen={isModalOpen}
-        //   onClose={handleCloseModal}
-        //   movie={selectedMovie}
-        />
-      </Box>
-    </div>
+          </Grid>
+        ))}
+      </Grid>
+      <MovieModal
+      // isOpen={isModalOpen}
+      // onClose={handleCloseModal}
+      // movie={selectedMovie}
+      />
+    </Box>
   );
 };
 

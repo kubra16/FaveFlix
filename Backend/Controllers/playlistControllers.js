@@ -63,6 +63,22 @@ const addMovies = asyncHandler(async (req, res) => {
   }
 });
 
+const addplayListPublic = asyncHandler(async (req, res) => {
+  try {
+    const list = await playlist.findById(req.params.id);
+
+    if (!list) {
+      return res.status(404).json({ message: "List not found" });
+    }
+    list.isPublic = true;
+    await list.save();
+    return res.status(200).json({ message: "Playlist marked as public" });
+  } catch (error) {
+    console.error("Error marking playlist as public:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 const removeMovies = asyncHandler(async (req, res) => {
   try {
     const list = await playlist.findById(req.params.id);
@@ -85,4 +101,5 @@ module.exports = {
   getAllPlaylist,
   addMovies,
   removeMovies,
+  addplayListPublic,
 };

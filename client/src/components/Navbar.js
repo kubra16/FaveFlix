@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Button,
   Container,
   Toolbar,
   Typography,
@@ -10,9 +11,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Styles.module.css";
 import ThemeToggleButton from "./ThemeToggleButton";
+import { UserState } from "../Context/UserProvider";
 
 const Navbar = ({ themeMode, toggleTheme }) => {
   const theme = useTheme();
+  const { setUser } = UserState();
+  const logout = () => {
+    localStorage.removeItem("userInfo");
+    setUser(null);
+  };
   return (
     <AppBar position="fixed" className={styles.navbar}>
       <Container>
@@ -65,6 +72,7 @@ const Navbar = ({ themeMode, toggleTheme }) => {
               toggleTheme={toggleTheme}
             />
           </div>
+          <Button onClick={logout}>Logout</Button>
           {/* </div> */}
         </Toolbar>
       </Container>
